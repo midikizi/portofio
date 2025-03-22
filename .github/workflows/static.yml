@@ -29,31 +29,27 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # Étape 1 : Checkout le code du dépôt
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      # Étape 2 : Configurer Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18  # Utilise Node.js 18 (ou une autre version compatible)
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          target_branch: main
-          folder: dist/
-
+      # Étape 3 : Installer les dépendances
       - name: Install dependencies
         run: npm install
 
+      # Étape 4 : Builder le projet Astro
       - name: Build project
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: './dist/'
+      # Étape 5 : Déployer sur GitHub Pages
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Token d'accès GitHub
+          publish_dir: ./dist  # Dossier contenant les fichiers générés par Astro
