@@ -51,5 +51,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Token d'accès GitHub
+          github_token: ${{ secrets.P_TOKEN }}  # Token d'accès GitHub
           publish_dir: ./dist  # Dossier contenant les fichiers générés par Astro
